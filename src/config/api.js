@@ -1,6 +1,6 @@
 const config = {
     api_domain: 'http://ec2-54-172-224-92.compute-1.amazonaws.com:3001',
-    //api_domain: 'http://localhost:3001',
+    // api_domain: 'http://localhost:3001',
     links: {
         github: "https://github.com/MartinAngulo",
         lin: "https://www.linkedin.com/in/martinangulo1194",
@@ -29,9 +29,9 @@ const config = {
     ],
     pages: [
         { value: 10, label: '10 c/p' },
-        // { value: 20, label: '20 c/p' },
-        // { value: 30, label: '30 c/p' },
-        // { value: 'max', label: 'All' },
+        { value: 20, label: '20 c/p' },
+        { value: 30, label: '30 c/p' },
+        { value: 'max', label: 'All' },
     ],
     namefilter: [
         { value: 'ASC', label: 'A-Z' },
@@ -54,33 +54,45 @@ const config = {
         { value: "Oceania", label: 'Oceania' },
     ],
     contFilter: (countries, prop) => {
-        // return countries.reduce((a,e)=>{
-        //     return a = [...a,...e.data];
-        // },[])
         return countries.filter(a => a.continent === prop);
+    },
+    order: (countries, order) => { //order={order:'ASC||DESC', para: "name||population||area"}
+                if (order.order === 'ASC') {
+                    return [...countries].sort((a, b) => {
+                        if (a[order.para] > b[order.para]) {
+                            return 1;
+                        }
+                        if (a[order.para] < b[order.para]) {
+                            return -1;
+                        }
+                        return 0;
+                    })
+                }
+                else {
+                    return [...countries].sort((a, b) => {
+                        if (a[order.para] > b[order.para]) {
+                            return -1;
+                        }
+                        if (a[order.para] < b[order.para]) {
+                            return 1;
+                        }
+                        return 0;
+                    })
+                }
     },
     pagination: (countries, tp = 10) => {
         let max = tp;
         if (max === 'max') {
             max = countries.length
         }
-        const maxPages = 1 + Math.ceil((countries.length - 9 )/ max);
-        // console.log(countries.length, max)
+        const maxPages = Math.ceil(countries.length / max);
 
         const paginate = [];
         for (let i = 0; i < maxPages; i++) {
-            if (i === 0) {
-                paginate.push({
-                    page: { total: maxPages, current: 1, next: i + 1 < maxPages ? true : false },
-                    data: countries.slice(0, 9)
-                })
-            }
-            else if(maxPages > 1){
-                paginate.push({
-                    page: { total: maxPages, current: i + 1, next: i + 1 < maxPages ? true : false },
-                    data: countries.slice(i * max-1, i * max + max-1)
-                })
-            }
+            paginate.push({
+                page: { total: maxPages, current: i + 1, next: i + 1 < maxPages ? true : false },
+                data: countries.slice(i * max, i * max + max)
+            })
         }
 
         return paginate;

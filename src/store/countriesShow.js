@@ -2,27 +2,27 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiConfig from '../config/api';
 import axios from 'axios';
 
-export const getAllCountries = createAsyncThunk('countries/getAll', async (thunkAPI) => {
+export const getAllCountries = createAsyncThunk('countries/getAllCountries', async (thunkAPI) => {
     const countries = await axios.get(`${apiConfig.api_domain}/countries`);
     return countries.data;
 });
 
-export const searchCountries = createAsyncThunk('countries/search', async (countriesData, thunkAPI) => {
+export const searchCountries = createAsyncThunk('countries/searchCountries', async (countriesData, thunkAPI) => {
     const countries = await axios.get(`${apiConfig.api_domain}/countries?name=${countriesData}`);
     return countries.data;
 });
 
-export const countryDetail = createAsyncThunk('countries/detail', async (countryId, thunkAPI) => {
+export const countryDetail = createAsyncThunk('countries/countryDetail', async (countryId, thunkAPI) => {
     const country = await axios.get(`${apiConfig.api_domain}/countries/${countryId}`);
     return country.data;
 });
 
-export const filter = createAsyncThunk('countries/infoFilter', async (info, thunkAPI) => {
+export const filter = createAsyncThunk('countries/filter', async (info, thunkAPI) => {
     const countries = await axios.get(`${apiConfig.api_domain}/countries/order/${info.order}?para=${info.para}`);
     return countries.data;
 });
 
-export const filterSeason = createAsyncThunk('countries/seasonfilter', async (season, thunkAPI) => {
+export const filterSeason = createAsyncThunk('countries/filterSeason', async (season, thunkAPI) => {
     const country = await axios.get(`${apiConfig.api_domain}/countries/order/season/${season}`);
     return country.data;
 });
@@ -43,6 +43,10 @@ const countriesSlice = createSlice({
     reducers: {
         addFilter(state, action) {
             state.filters = action.payload;
+        },
+        order(state, action){
+            if(state.search.length>0)state.search = action.payload;
+            else state.filters = action.payload;
         },
         resetFilters(state) {
             state.filters = [];
@@ -97,7 +101,8 @@ export const {
     resetFilters,
     resetDetail,
     changePage,
-    resetPage 
+    resetPage ,
+    order
 } = countriesSlice.actions;
 
 export default countriesSlice.reducer;

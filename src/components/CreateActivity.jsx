@@ -11,15 +11,20 @@ import ActivityCard from './ActivityCard';
 export default function CreateActivity() {
   const dispatch = useDispatch();
 
+  const initialError = {
+    name: '',
+    countries: '',
+    dif: '',
+    dura: '',
+    season: ''
+  }
+
   let [name, setName] = useState('');
   let [dif, setDif] = useState('');
   let [dura, setDura] = useState('');
   let [season, setSeason] = useState('');
   let [country, setCountry] = useState([]);
-  let [error, setError] = useState({
-    name:'',
-    countries: ''
-  })
+  let [error, setError] = useState(initialError)
 
   const countriesShow = useSelector(state => state.countriesShow.countries)
   // .map(e => { return { value: e.id, label: e.name } });
@@ -27,50 +32,60 @@ export default function CreateActivity() {
   const chargeStatus = useSelector(state => state.activities.charge);
   const activities = useSelector(state => state.activities.activities);
 
+  const validation = (prop, value) => {
+    if (prop === 'name') {
+      if (!/^[a-zA-Z ]{3,20}$/.test(value)) {
+        setError(state => { return { ...state, name: 'Name has to have only letters, min 3 o max 20 letters' } })
+      }
+      else if (activities.map(e => e.name).includes(value.toUpperCase())) {
+        setError(state => {
+          return {
+            ...state, name: "Activity's name already exists"
+          }
+        })
+      }
+      else setError(state => { return { ...state, name: '' } });
+    }
+    else if (prop === 'dif') {
+      if (!/^([1-5])$/.test(value)) {
+        setError(state => { return { ...state, dif: 'Only numbers, min 1, max 5' } })
+      } else {
+        setError(state => { return { ...state, dif: '' } })
+      }
+    }
+    else if (prop === 'dura') {
+      if (!/^([1-5])$/.test(value)) {
+        setError(state => { return { ...state, dura: 'Only numbers, min 1, max 5' } })
+      } else {
+        setError(state => { return { ...state, dura: '' } })
+      }
+    }
+    else if (prop === 'season') {
+      if (!['spring','autumn','winter','summer'].includes(value)) {
+        setError(state => { return { ...state, season: 'Please, enter a valid season' } })
+      } else {
+        setError(state => { return { ...state, season: '' } })
+      }
+    }
+  }
+
+
   const handleChange = (e, cb) => {
+    validation(e.target.name, e.target.value);
     cb(e.target.value);
   }
   const handleName = (e) => {
-    if(e.target.value.length<3)setError(state=>{return {
-      ...state, name: 'Name require min 3 letters'}});
-    else if(activities.map(e=>e.name).includes(e.target.value.toUpperCase())){
-      setError(state=>{return {
-        ...state, name: "Activity's name already exists"}})
-    }
-    else setError({
-      name:'',
-      countries: ''
-    })
-    
-    if(e.target.value.length>20)setError(state=>{return {
-      ...state, name: 'Name require max 20 letters'}});
-    else setName(e.target.value);
+    validation(e.target.name, e.target.value);
+    setName(e.target.value);
   }
 
-  // const validation = ({name, difficulty, duration, season, countries}) => {
-  //   if (parseInt(name) == name) return false;
-  //   if (difficulty < 1 || difficulty > 5) return false;
-  //   if (duration < 1 || duration> 5) return false;
-  //   if (!config.seasonsOptions.find(e => e.value === season)) return false;
-  //   if (countries.length === 0) return false;
-  //   return true;
-  // }
-  // const handleChange2 = (e) => {
-  //   setDura(e);
-  // }
-  // const handleChange3 = (e) => {
-  //   setSeason(e);
-  // }
-  // const handleChange4 = (selectedOption) => {
-  //   setSelected(selectedOption);
-  // } alert
 
   const disableSubmit = () => {
-    if (name.length < 3 || !dif || !dura || !season || country.length === 0||error.name!=="") return true;
+    if (name.length < 3 || !dif || !dura || !season || country.length === 0) return true;
     else return false;
   }
   const disableClear = () => {
-    if (name.length > 0 || dif.value || dura.value || season.value || country.length > 0) return false;
+    if (name.length > 0 || dif || dura || season || country.length > 0) return false;
     else return true;
   }
 
@@ -80,10 +95,7 @@ export default function CreateActivity() {
     setDura('');
     setSeason('');
     setCountry([]);
-    setError({
-      name:'',
-      countries: ''
-    })
+    setError(initialError)
   }
 
   const onSubmit = e => {
@@ -95,6 +107,9 @@ export default function CreateActivity() {
       season: season,
       countries: country
     }
+    if (error.countries.length > 0 || error.dif.length > 0 || error.dura.length > 0 || error.name.length > 0 || error.season.length > 0) {
+      return alert('Should fix errors to create an activity')
+    }
     dispatch(getActivity());
     // if (validation(data)) {
     dispatch(
@@ -102,27 +117,26 @@ export default function CreateActivity() {
     )
     dispatch(addCharge());
     onClick();
-    // }
-    // else {
-    //   alert('Invalid Information')
-    //   onClick();
-    // }
   }
 
-  const handleCountries = (e)=>{
-    if(country.length===6){
-      setError(state=>{return {
-        ...state, countries: 'Select max 6 countries for activity'
-      }})
-    }else {
-      setCountry(state => [...state, e.target.value]);
-      // setError(state=>{return {
-      //     ...state, countries: ''
-      //   }})
-    }
+  const handleCountries = (e) => {
+    setCountry(state => [...state, e.target.value]);
   }
 
   useEffect(() => {
+    if (country.length >6) {
+      setError(state => {
+        return {
+          ...state, countries: 'Select max 6 countries for activity'
+        }
+      })
+    }
+    else setError(state => {
+      return {
+        ...state, countries: ''
+      }
+    });
+
     if (!loadStatus) {
       dispatch(getAllCountries())
       onClick();
@@ -130,7 +144,7 @@ export default function CreateActivity() {
     else dispatch(getActivity());
 
 
-  }, [dispatch, loadStatus])
+  }, [ dispatch, loadStatus, country])
 
   return (
     chargeStatus ? <div className={styles.charge}><ChargePage /></div> :
@@ -143,8 +157,9 @@ export default function CreateActivity() {
             <input type="text"
               className={styles.name}
               value={name} id='name'
+              name='name'
               onChange={handleName}
-              pattern='^[a-zA-Z ]{3,20}$'
+              // pattern='^[a-zA-Z ]{3,20}$'
               placeholder="Type an activity's name, min 3 letters"
             />
             <label className={styles.error}>{error.name}</label>
@@ -160,6 +175,7 @@ export default function CreateActivity() {
             /> */}
             <select
               value={dif}
+              name='dif'
               // id='pages'
               className={styles.diff}
               // options={config.dificulty}
@@ -168,6 +184,7 @@ export default function CreateActivity() {
               <option hidden>Select activity Difficulty</option>
               {config.dificulty.map(dif => (<option value={dif.value}>{dif.label}</option>))}
             </select>
+            <label className={styles.error}>{error.dif}</label>
 
             <label className={styles.label}>Duration: </label>
             {/* <Select
@@ -179,6 +196,7 @@ export default function CreateActivity() {
             /> */}
             <select
               value={dura}
+              name='dura'
               // id='pages'
               className={styles.duration}
               // options={config.duration}
@@ -187,6 +205,7 @@ export default function CreateActivity() {
               <option hidden>Select activity Duration</option>
               {config.duration.map(dura => (<option value={dura.value}>{dura.label}</option>))}
             </select>
+            <label className={styles.error}>{error.dura}</label>
 
             <label className={styles.label}>Season: </label>
             {/* <Select
@@ -198,6 +217,7 @@ export default function CreateActivity() {
             /> */}
             <select
               value={season}
+              name='season'
               // id='pages'
               className={styles.season}
               // options={config.seasonsOptions}
@@ -206,6 +226,7 @@ export default function CreateActivity() {
               <option hidden>Select activity Season</option>
               {config.seasonsOptions.map(season => (<option value={season.value}>{season.label}</option>))}
             </select>
+            <label className={styles.error}>{error.season}</label>
 
             <label className={styles.label}>Countries: </label>
             {/* <Select
@@ -221,7 +242,7 @@ export default function CreateActivity() {
               value={'Select countries where can practice this'}
               // id='pages'
               className={styles.season}
-              i
+              name='countries'
               // multiple
               // size={10}
               // options={countriesShow}
@@ -232,7 +253,7 @@ export default function CreateActivity() {
                 .map(c => (<option value={c.id}>{c.name}</option>))}
             </select>
             <label className={styles.error}>{error.countries}</label>
-    
+
             <div className={styles.btns}>
               <button
                 className={disableSubmit() ? styles.block : styles.button}
@@ -244,24 +265,26 @@ export default function CreateActivity() {
                 disabled={disableClear()}
                 onClick={() => onClick()}>Clear</button>
             </div>
-            </form>
-            {/*Paises Seleccionados */}
-            <div className={styles.cSelect}>
-              {
-                country.length > 0 && country.map(e => (
-                  <div style={{ display: 'flex', border: '2px solid black', padding: '2px', gap: '2px' }}>
-                    <img className={styles.cShow} src={countriesShow.find(f => f.id === e).imgFlag} title={countriesShow.find(f => f.id === e).name} alt='flag'/>
-                    <button onClick={() => {
-                      if(country.length===6)setError(state=>{return {
+          </form>
+          {/*Paises Seleccionados */}
+          <div className={styles.cSelect}>
+            {
+              country.length > 0 && country.map(e => (
+                <div style={{ display: 'flex', border: '2px solid black', padding: '2px', gap: '2px' }}>
+                  <img className={styles.cShow} src={countriesShow.find(f => f.id === e).imgFlag} title={countriesShow.find(f => f.id === e).name} alt='flag' />
+                  <button onClick={() => {
+                    if (country.length === 6) setError(state => {
+                      return {
                         ...state, countries: ''
-                      }})
-                      setCountry(state => state.filter(j => j !== e))
-                    }} className={styles.xbtn}>x</button>
-                  </div>))
-              }
-            </div>
+                      }
+                    })
+                    setCountry(state => state.filter(j => j !== e))
+                  }} className={styles.xbtn}>x</button>
+                </div>))
+            }
+          </div>
 
-         
+
         </div>
         <div className={styles.showAct}>
           <h1 className={styles.list}>List of Activities</h1>
@@ -271,7 +294,9 @@ export default function CreateActivity() {
               &&
               activities.map(activity => {
                 return (
-                  <ActivityCard data={activity} key={activity.id} />
+                  <div key={activity.id}>
+                    <ActivityCard data={activity} />
+                  </div>
                 )
               }
               )

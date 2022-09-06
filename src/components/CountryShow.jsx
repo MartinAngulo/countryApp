@@ -8,7 +8,7 @@ import { changePage } from '../store/countriesShow';
 
 export default function CountryShow() {
 
-  // const [cPage, setCpage] = useState(1);
+  
   const cPage = useSelector(state=>state.countriesShow.currentPage)
   const [totalPages, setTotalPages] = useState(10);
   const dispatch = useDispatch();
@@ -21,14 +21,12 @@ export default function CountryShow() {
 
   const handlePages = (e) => {
     dispatch(changePage(1));
-    // setCpage(1);
     setTotalPages(e.target.value);
   }
 
   const handlecurrentPage = (page) => {
     dispatch(changePage(page));
     window.scrollTo(0,0);
-    // setCpage(page);
   }
 
   const searchPag = () => {
@@ -43,9 +41,6 @@ export default function CountryShow() {
     return config.pagination(countries, totalPages)
   }
 
-  // useEffect(() => {
-  //   if(searchStatus='success')setCpage(1);
-  // }, [])
   
 
   return (
@@ -100,7 +95,7 @@ export default function CountryShow() {
             id='pages'
             placeholder='Select c/p'
             className={styles.total}
-            disabled
+            // disabled
             // options={config.pages}
             onChange={handlePages}
           >

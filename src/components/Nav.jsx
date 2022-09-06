@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { resetFilters, resetShow } from '../store/countriesShow';
+import { resetShow } from '../store/countriesShow';
 import SearchBar from './SearchBar';
 import styles from '../StyleSheets/Nav.module.css';
 import Filters from './Filters'
@@ -22,9 +22,9 @@ export default function Nav() {
     dispatch(
       resetShow()
     )
-    dispatch(
-      resetFilters()
-    )
+    // dispatch(
+    //   resetFilters()
+    // )
     navigate(`/${path}`);
   }
 

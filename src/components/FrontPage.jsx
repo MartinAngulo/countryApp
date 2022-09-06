@@ -13,6 +13,12 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+function mapStateToProps(state) {
+  return {
+    load_status: state.countriesShow.load_status
+  }
+}
+
 class FrontPage extends Component {
 
   constructor(props) {
@@ -20,10 +26,8 @@ class FrontPage extends Component {
     this.state = { load: false }
     this.handleClick = this.handleClick.bind(this);
   }
-  componentDidMount() {
-    this.props.getAllCountries();
-  }
   handleClick() {
+    this.props.getAllCountries();
     this.setState(state => state.load = true);
   }
 
@@ -35,7 +39,7 @@ class FrontPage extends Component {
   
     return (
       <div className={styles.container} >
-        {this.state.load ? <LoadingPage url={'/home'} />
+        {this.state.load ? <LoadingPage />
           : <>
             <p className={styles.gif} ></p>
             <div className={styles.lateral}>
@@ -55,4 +59,4 @@ class FrontPage extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(FrontPage);
+export default connect(mapStateToProps, mapDispatchToProps)(FrontPage);

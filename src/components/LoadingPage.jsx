@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from '../StyleSheets/LoadingPage.module.css';
 
-export default function LoadingPage({ url }) {
+export default function LoadingPage() {
     const navigate = useNavigate();
+    const load_status = useSelector(state=>state.countriesShow.load_status);
     useEffect(() => {
         setTimeout(() => {
-            if (url) navigate(url);
-        }, 3000);
-    }, [navigate, url])
+            if(load_status){
+                navigate('/home');
+            }
+        }, 1500);
+    }, [navigate, load_status])
+    
 
     return (
         <div className={styles.cont}>
