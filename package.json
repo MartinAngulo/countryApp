@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://MartinAngulo.github.io/countryApp",
+  "homepage" : "https://MartinAngulo.github.io/countryApp",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.4",
     "@testing-library/jest-dom": "^5.11.10",
