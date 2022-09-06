@@ -1,0 +1,61 @@
+.cont {
+    background-color:lightgrey;
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    margin: 10px;
+    height: auto;
+    justify-content: space-between;
+}
+
+.title {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    justify-content: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.text {
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.cont2 {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.countries {
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+.flagCont {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 30px);
+    width: 130;
+    gap: 5px;
+    align-items: center;
+    padding: 0;
+    margin: 10px;
+}
+
+.flag {
+    height: 20px;
+    width: 30px;
+    padding: 0;
+    margin: 0;
+}

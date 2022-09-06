@@ -1,0 +1,53 @@
+.cont {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(150px, 1fr)) 100px;
+    gap: 30px;
+    align-items: center;
+    width: 96vw;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.select {
+    height: 30px;
+    width: auto;
+    background-color: lightgray;
+}
+
+.clear {
+    display: flex;
+    width: 100px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    color: white;
+    background-color: black;
+    
+}
+
+.clear:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.block {
+    display: flex;
+    width: 100px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 400px) {
+    .cont {
+        margin-top: 80px;
+        gap: 10px;
+        grid-template-columns: 30vw 30vw 40vw;
+    }
+    .select {
+        width: 30vw;
+    }
+}

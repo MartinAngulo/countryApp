@@ -1,0 +1,33 @@
+.cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    position:relative;
+    top: 105px;
+    left: 0;
+    z-index: 0;
+    width: auto;
+    height: auto;
+    background-color: black;
+    min-height: 100%;
+    
+}
+
+.baner {
+    background-image: url('../images/baner.jpg');
+    width: 100%;
+    height: 50vh;
+    background-size: 100% 200%;
+    background-position: 0 -300px;
+    color: white;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 4rem;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: flex-end;
+    display: flex;
+    padding-bottom: 10px;
+}

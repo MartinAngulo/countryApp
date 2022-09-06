@@ -1,0 +1,33 @@
+.cont {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+
+.loader {
+  background-image: url('../images/mundo\ sprite.png');
+  width: 205.1875px;
+  height: 184px;
+  background-position: 0px 0;
+  animation: rotate 3s steps(14) infinite;
+}
+
+@keyframes rotate {
+  to {
+      background-position: -2872.625px 0;
+  }
+}
+
+.cont2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: white;
+  font-weight: bold;
+  padding-top: 20px;
+}

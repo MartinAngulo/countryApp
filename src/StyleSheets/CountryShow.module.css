@@ -1,0 +1,119 @@
+.container2 {
+    height: 100%;
+}
+
+.container {
+    padding: 0;
+    margin: 0;
+    margin: 100px 0 70px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 450px);
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    height: 100%;
+    min-height: 100%;
+}
+
+.pages {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 80vw 20vw;
+    gap: 10px;
+    background-color: gray;
+    height: 50px;
+    width: 100vw;
+    align-items: center;
+}
+
+.total {
+    height: 30px;
+    width: 80px;
+    font-size: 1rem;
+    opacity: 0.5;
+}
+
+.total:focus {
+opacity: 1;
+cursor: pointer;
+}
+
+.nums{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,  20px);
+    gap: 10px;
+    width: 100vw;
+    justify-content: center;
+}
+
+.btn {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.block {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.cpages {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.notFound {
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+@media screen and (max-width: 400px){
+    .nums {
+        justify-self: center;
+        width: 65vw;
+        margin: 0;
+        padding: 0;
+    }
+    .pages {
+        display: grid;
+        grid-template-columns: 70% 30%;
+        height: 100px;
+        width: 100%;
+        gap: 5px;
+        justify-self: center;
+        justify-content: center;
+    }
+    .cpages {
+        flex-direction: column;
+        width: 20vw;
+        font-size: 0.8rem;
+        align-items: center;
+        justify-self: center;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 30px;
+        justify-items: center;
+        width: 100%;
+        
+    }
+    .container2{
+        width: 100vw;
+    }
+}

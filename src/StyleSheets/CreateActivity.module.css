@@ -1,0 +1,201 @@
+.season, .duration, .diff, .countries {
+    width: 28vw;
+    height: 30px;
+}
+.countries {
+    margin-bottom: 10px;
+}
+.name {
+    height: 25px;
+    width: 28vw;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: repeat(9, 1fr) 1fr 40px;
+    height: 50vh;
+}
+
+.label {
+    margin-top: 15px;
+    padding: 0;
+    font-size: 0.8rem;
+}
+
+.create {
+    padding: 30px;
+    justify-self: center;
+    background-color: white;
+    width: 30vw;
+    height: 70vh;
+    margin-top: 20px;
+}
+
+.main {
+    position: relative;
+    top: 105px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    align-items: flex-start;
+    background-color: black;
+    height: 100%;
+}
+
+.charge {
+    width: 50%;
+}
+
+.btns {
+    display: flex;
+    gap: 10px;
+    
+}
+
+.button {
+    width: 100px;
+    height: 40px;
+    margin: 0x 10px 0px 0;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    border-radius: 10px;
+}
+
+.button:hover {
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    cursor: pointer;
+
+}
+
+.block {
+    width: 100px;
+    height: 40px;
+    margin: 0px 10px 0px 0;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    border-radius: 10px;
+}
+
+.showAct {
+    justify-self: center;
+    width: 50vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 30px;
+    margin-top: 20px;
+}
+
+.list {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.countries {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 170px);
+    width: auto;
+    gap: 10px;
+    justify-content: center;
+}
+
+.cSelect {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 70px);
+    width: 25vw;
+    height: 10px;
+    align-items: center;
+    gap: 5px;
+}
+
+.cShow {
+    display: flex;
+    width:45px;
+    height: 20px;
+    margin: 0;
+    padding:0;
+    justify-content: center;
+    color: white;
+}
+
+.xbtn {
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    background-color: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.xbtn:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    font-size: 0.7rem;
+}
+
+@media screen and (max-width: 400px){
+    .main {
+        top: 200px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .create {
+        width: 100vw;
+    }
+    .form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .name, .diff, .duration, .season {
+        width: 65vw;
+    }
+    .showAct {
+        width: 100vw;
+        height: auto;
+    }
+    .btns {
+        margin-bottom: 10px;
+        height: 40px;
+    }
+    .label {
+        margin-bottom: 10px;
+        padding: 0;
+        height: 20px;
+    }
+    .cSelect {
+        width: 80vw;
+    }
+    .error {
+        padding: 0;
+        margin: 0;
+        width: 90vw;
+    }
+    .countries {
+        width: 90vw;
+        height: auto;
+    }
+}

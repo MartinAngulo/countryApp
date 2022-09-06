@@ -1,0 +1,36 @@
+.input {
+    width: 400px;
+    padding-right: 10px;
+    
+    background-color: lightgray;
+}
+
+.input:focus {
+    background-color: white;
+}
+
+.cont {
+    display: flex;
+    align-items: center;
+}
+
+.clear {
+    background-image: url('../images/clearBtn.png');
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    opacity: 0.5;
+}
+
+.clear:hover {
+    opacity: 1;
+}
+
+@media screen and (max-width: 400px) {
+    .input {
+        height: 40px;
+        width: 80vw;
+        margin-top: 20px;
+    }
+}
