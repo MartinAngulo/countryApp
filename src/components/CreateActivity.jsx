@@ -124,6 +124,22 @@ export default function CreateActivity() {
   }
 
   useEffect(() => {
+
+    const initialError = {
+      name: '',
+      countries: '',
+      dif: '',
+      dura: '',
+      season: ''
+    }
+    const onClick = () => {
+      setName('');
+      setDif('');
+      setDura('');
+      setSeason('');
+      setCountry([]);
+      setError(initialError)
+    }
     if (country.length >6) {
       setError(state => {
         return {
